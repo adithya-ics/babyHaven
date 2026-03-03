@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BabyHaven · click cart → navbar count</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+  <!-- Google Font: Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: linear-gradient(145deg, #fff9fb 0%, #ffeef4 100%);
+      font-family: 'Poppins', sans-serif;
+      color: #4a2c3a;
+    }
+    /* navbar */
+    .navbar-custom {
+      background: rgba(255, 240, 248, 0.85);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: 0 10px 25px -8px rgba(210, 80, 140, 0.2);
+      border-bottom: 1px solid rgba(255, 200, 220, 0.5);
+      padding: 14px 0;
+    }
+    .navbar-brand {
+      font-size: 2rem;
+      font-weight: 700;
+      background: linear-gradient(130deg, #c2185b, #e64980);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent !important;
+      letter-spacing: 1px;
+    }
+    .navbar-brand:hover { transform: scale(1.02); }
+    .navbar-nav .nav-link {
+      color: #553b48;
+      font-weight: 500;
+      margin: 0 8px;
+      padding: 8px 16px !important;
+      border-radius: 40px;
+    }
+    .navbar-nav .nav-link:hover {
+      background: rgba(255, 130, 180, 0.15);
+      color: #b82b6b;
+    }
+    .navbar-nav .nav-link.active {
+      background: linear-gradient(145deg, #ffdae9, #ffc4db);
+      color: #b1306b !important;
+      font-weight: 600;
+      box-shadow: 0 6px 14px rgba(255, 105, 160, 0.3);
+    }
+    /* icon group */
+    .nav-icon-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: 12px;
+    }
+    .icon-circle {
+      background: white;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 14px #fccfdf;
+      color: #d96f94;
+      font-size: 1.3rem;
+      transition: 0.2s;
+      position: relative;
+      cursor: default;
+    }
+    .icon-circle:hover { background: #ffe2ed; transform: scale(1.05); }
+    .cart-badge, .wishlist-badge {
+      background: #ff4d94;
+      color: white;
+      border-radius: 30px;
+      padding: 4px 16px;
+      font-size: 0.7rem;
+      font-weight: bold;
+      border: 2px solid white;
+      top: 2px;
+      right: -8px;
+    }
+
+    .section-greeting {
+      text-align: center;
+      margin: 50px 0 20px;
+    }
+    .section-greeting h2 {
+      font-size: 2.5rem;
+      font-weight: 600;
+      background: linear-gradient(145deg, #d4508f, #f07bac);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .section-greeting p {
+      font-size: 1.2rem;
+      color: #a1617c;
+    }
+
+    .shop-layout {
+      width: 96%;
+      max-width: 1600px;
+      margin: 20px auto 60px;
+    }
+
+    /* product card */
+    .product-card {
+      background: white;
+      border-radius: 32px;
+      overflow: hidden;
+      box-shadow: 0 18px 35px -8px rgba(210, 80, 140, 0.2);
+      transition: all 0.35s;
+      text-align: center;
+      border: 1px solid rgba(255, 210, 230, 0.7);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      position: relative;
+    }
+    .product-card:hover {
+      transform: translateY(-8px) scale(1.01);
+      box-shadow: 0 28px 50px -12px #d45d93;
+      border-color: #ffb8d2;
+    }
+
+    /* wishlist heart on card — clickable */
+    .card-wishlist-icon {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: rgba(255, 255, 255, 0.9);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: #ff80b3;
+      box-shadow: 0 4px 12px rgba(255, 120, 170, 0.4);
+      z-index: 5;
+      transition: 0.2s;
+      border: 2px solid white;
+      cursor: pointer;
+    }
+    .card-wishlist-icon:hover {
+      background: #ffe2ed;
+      transform: scale(1.1);
+      color: #d9367e;
+    }
+    .card-wishlist-icon.wishlist-active {
+      color: white;
+      background: #ff80b3;
+    }
+
+    .product-img-wrapper {
+      overflow: hidden;
+      aspect-ratio: 1 / 1.1;
+      background: #fff1f7;
+      padding: 10px;
+    }
+    .product-img {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+      transition: transform 0.7s ease;
+      border-radius: 24px 24px 12px 12px;
+    }
+    .product-card:hover .product-img { transform: scale(1.08); }
+    .product-body {
+      padding: 18px 14px 22px;
+      background: white;
+      border-radius: 0 0 32px 32px;
+      flex: 1;
+    }
+    .product-name {
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: #7d4d65;
+      margin-bottom: 8px;
+      text-transform: capitalize;
+    }
+    .product-price {
+      font-weight: 700;
+      font-size: 1.5rem;
+      background: linear-gradient(135deg, #ff2891, #c9216b);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 10px;
+    }
+    .product-icons i {
+      color: #ffb0d0;
+      font-size: 1rem;
+    }
+    .product-icons i.bi-star-fill { color: #ff80b0; }
+    .btn-cart {
+      background: linear-gradient(135deg, #ff9fcb, #ff80b3);
+      border: none;
+      color: white;
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 12px 10px;
+      border-radius: 40px;
+      transition: 0.3s;
+      box-shadow: 0 5px 12px rgba(255, 110, 170, 0.4);
+      width: 85%;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: 1px solid rgba(255,255,255,0.4);
+      text-transform: uppercase;
+      letter-spacing: 0.7px;
+      cursor: pointer;
+    }
+    .btn-cart:hover {
+      background: linear-gradient(135deg, #ff80b3, #ff4d94);
+      transform: scale(1.05);
+      box-shadow: 0 10px 20px #f598bc;
+    }
+
+    /* ===== PINK FOOTER MODEL 2 ===== */
+
+.bh-footer-pink {
+  background: linear-gradient(180deg, #ffe6f0, #ffc9dc);
+  padding: 70px 0 30px;
+  border-radius: 60px 60px 0 0;
+  color: #5a2d42;
+}
+
+.bh-footer-newsletter h3 {
+  font-weight: 600;
+}
+
+.bh-footer-newsletter p {
+  color: #7a4c62;
+}
+
+.bh-pink-input {
+  border-radius: 50px;
+  padding: 12px 20px;
+  border: none;
+  width: 280px;
+}
+
+.bh-pink-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 105, 160, 0.3);
+}
+
+.bh-pink-btn {
+  background: #ff4d94;
+  color: white;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 50px;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.bh-pink-btn:hover {
+  background: #e63c83;
+}
+
+.bh-divider {
+  margin: 40px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.bh-footer-pink h6 {
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.bh-footer-pink ul {
+  list-style: none;
+  padding: 0;
+}
+
+.bh-footer-pink ul li {
+  margin-bottom: 10px;
+}
+
+.bh-footer-pink ul li a {
+  text-decoration: none;
+  color: #6e3f55;
+  transition: 0.3s;
+}
+
+.bh-footer-pink ul li a:hover {
+  color: #ff2f86;
+}
+
+.bh-pink-social i {
+  font-size: 1.3rem;
+  margin-right: 14px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.bh-pink-social i:hover {
+  transform: scale(1.2);
+  color: #ff2f86;
+}
+
+.bh-pink-bottom {
+  font-size: 0.9rem;
+  color: #7a4c62;
+}
+.badge-bubble {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: #ff4d94;
+  color: white;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 7px;
+  border-radius: 50px;
+  border: 2px solid white;
+  min-width: 20px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(255, 77, 148, 0.4);
+}
+
+.badge-bubble:empty {
+  display: none;
+}
+  </style>
+</head>
+<body>
+
+<!-- ===== navbar with wishlist & cart badges (both update on click) ===== -->
+<nav class="navbar navbar-expand-lg navbar-custom sticky-top">
+  <div class="container">
+    <a class="navbar-brand" href="index.html"><i class="bi bi-cup-heart-fill me-2" style="color:#ff80b3;"></i>BabyHaven</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon" style="filter: hue-rotate(320deg);"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto align-items-center">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link active" href="shop.html">Shop</a></li>
+        <li class="nav-item"><a class="nav-link" href="categories.html">Categories</a></li>
+        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        <!-- icon group: search + wishlist (linked) + cart (linked) -->
+        <li class="nav-item nav-icon-group">
+          
+          <!-- Wishlist -->
+<a href="wishlist.html" class="icon-circle position-relative text-decoration-none">
+  <i class="bi bi-suit-heart-fill"></i>
+  <span id="wishlistCount" class="badge-bubble">0</span>
+</a>
+
+<!-- Cart -->
+<a href="cart.html" class="icon-circle position-relative text-decoration-none">
+  <i class="bi bi-handbag-fill"></i>
+  <span id="cartCount" class="badge-bubble">0</span>
+</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- page greeting -->
+<div class="section-greeting">
+  <h2>sweet shop · soft picks</h2>
+  <p>❤️ click heart to wishlist · 🛒 click 'add' to cart — counts update</p>
+</div>
+
+<!-- PRODUCT GRID (all cards have clickable wishlist hearts + cart buttons) -->
+<div class="shop-layout">
+  <div class="row g-4 row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5">
+
+    <!-- product 1 -->
+    <div class="col">
+      <div class="product-card">
+        <div class="card-wishlist-icon" onclick="toggleWishlist(this)"><i class="bi bi-heart"></i></div>
+        <div class="product-img-wrapper">
+          <img src="babyromperr.jpg" alt="baby romper" class="product-img" />
+        </div>
+        <div class="product-body">
+          <div class="product-name">baby romper</div>
+          <div class="product-price">$599.00</div>
+          <div class="product-icons">
+            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i><i class="bi bi-star"></i>
+          </div>
+        <button class="btn-cart" onclick="addToCartAndRemoveFromWishlist(this)">
+  <i class="bi bi-cart-plus"></i> Add to Cart
+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- product 2 -->
+    <div class="col">
+      <div class="product-card">
+        <div class="card-wishlist-icon" onclick="toggleWishlist(this)"><i class="bi bi-heart"></i></div>
+        <div class="product-img-wrapper">
+          <img src="softblanket.jpg" alt="soft blanket" class="product-img" />
+        </div>
+        <div class="product-body">
+          <div class="product-name">soft blanket</div>
+          <div class="product-price">$799.00</div>
+          <div class="product-icons">
+            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star"></i>
+          </div>
+         <button class="btn-cart" onclick="addToCartAndRemoveFromWishlist(this)">
+  <i class="bi bi-cart-plus"></i> Add to Cart
+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- product 3 -->
+    <div class="col">
+      <div class="product-card">
+        <div class="card-wishlist-icon" onclick="toggleWishlist(this)"><i class="bi bi-heart"></i></div>
+        <div class="product-img-wrapper">
+          <img src="babyshoes.jpg" alt="baby shoes" class="product-img" />
+        </div>
+        <div class="product-body">
+          <div class="product-name">baby shoes</div>
+          <div class="product-price">$490.00</div>
+          <div class="product-icons">
+            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star"></i><i class="bi bi-star"></i>
+          </div>
+         <button class="btn-cart" onclick="addToCartAndRemoveFromWishlist(this)">
+  <i class="bi bi-cart-plus"></i> Add to Cart
+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- product 4 -->
+    <div class="col">
+      <div class="product-card">
+        <div class="card-wishlist-icon" onclick="toggleWishlist(this)"><i class="bi bi-heart"></i></div>
+        <div class="product-img-wrapper">
+          <img src="baby towel.jpg" alt="hooded towel" class="product-img" />
+        </div>
+        <div class="product-body">
+          <div class="product-name">hooded towel</div>
+          <div class="product-price">$599.00</div>
+          <div class="product-icons">
+            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i><i class="bi bi-star"></i><i class="bi bi-star"></i>
+          </div>
+         <button class="btn-cart" onclick="addToCartAndRemoveFromWishlist(this)">
+  <i class="bi bi-cart-plus"></i> Add to Cart
+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- product 5 -->
+    <div class="col">
+      <div class="product-card">
+        <div class="card-wishlist-icon" onclick="toggleWishlist(this)"><i class="bi bi-heart"></i></div>
+        <div class="product-img-wrapper">
+          <img src="baby set.jpg" alt="baby gift set" class="product-img" />
+        </div>
+        <div class="product-body">
+          <div class="product-name">baby gift set</div>
+          <div class="product-price">$1499.00</div>
+          <div class="product-icons">
+            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star"></i><i class="bi bi-star"></i>
+          </div>
+         <button class="btn-cart" onclick="addToCartAndRemoveFromWishlist(this)">
+  <i class="bi bi-cart-plus"></i> Add to Cart
+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- product 6 -->
+    <div class="col">
+      <div class="product-card">
+        <div class="card-wishlist-icon" onclick="toggleWishlist(this)"><i class="bi bi-heart"></i></div>
+        <div class="product-img-wrapper">
+          <img src="babysoap.jpg" alt="natural soap" class="product-img" />
+        </div>
+        <div class="product-body">
+          <div class="product-name">natural soap</div>
+          <div class="product-price">$62.00</div>
+          <div class="product-icons">
+            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star"></i>
+          </div>
+         <button class="btn-cart" onclick="addToCartAndRemoveFromWishlist(this)">
+  <i class="bi bi-cart-plus"></i> Add to Cart
+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- product 7 -->
+    <div class="col">
+      <div class="product-card">
+        <div class="card-wishlist-icon" onclick="toggleWishlist(this)"><i class="bi bi-heart"></i></div>
+        <div class="product-img-wrapper">
+          <img src="babyproduct.jpg" alt="baby toys" class="product-img" />
+        </div>
+        <div class="product-body">
+          <div class="product-name">baby toys</div>
+          <div class="product-price">$450.00</div>
+          <div class="product-icons">
+            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i><i class="bi bi-star"></i>
+          </div>
+        <button class="btn-cart" onclick="addToCartAndRemoveFromWishlist(this)">
+  <i class="bi bi-cart-plus"></i> Add to Cart
+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- product 8 -->
+    <div class="col">
+      <div class="product-card">
+        <div class="card-wishlist-icon" onclick="toggleWishlist(this)"><i class="bi bi-heart"></i></div>
+        <div class="product-img-wrapper">
+          <img src="babyy.jpg" alt="baby onesie" class="product-img" />
+        </div>
+        <div class="product-body">
+          <div class="product-name">baby onesie</div>
+          <div class="product-price">$899.00</div>
+          <div class="product-icons">
+            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star"></i><i class="bi bi-star"></i>
+          </div>
+        <button class="btn-cart" onclick="addToCartAndRemoveFromWishlist(this)">
+  <i class="bi bi-cart-plus"></i> Add to Cart
+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- product 9 -->
+    <div class="col">
+      <div class="product-card">
+        <div class="card-wishlist-icon" onclick="toggleWishlist(this)"><i class="bi bi-heart"></i></div>
+        <div class="product-img-wrapper">
+          <img src="babyset.jpg" alt="baby bath set" class="product-img" />
+        </div>
+        <div class="product-body">
+          <div class="product-name">baby bath set</div>
+          <div class="product-price">$599.00</div>
+          <div class="product-icons">
+            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i><i class="bi bi-star"></i><i class="bi bi-star"></i>
+          </div>
+         <button class="btn-cart" onclick="addToCartAndRemoveFromWishlist(this)">
+  <i class="bi bi-cart-plus"></i> Add to Cart
+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- product 10 -->
+    <div class="col">
+      <div class="product-card">
+        <div class="card-wishlist-icon" onclick="toggleWishlist(this)"><i class="bi bi-heart"></i></div>
+        <div class="product-img-wrapper">
+          <img src="babyfeedingset.jpg" alt="feeding set" class="product-img" />
+        </div>
+        <div class="product-body">
+          <div class="product-name">feeding set</div>
+          <div class="product-price">$499.00</div>
+          <div class="product-icons">
+            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star"></i><i class="bi bi-star"></i>
+          </div>
+         <button class="btn-cart" onclick="addToCartAndRemoveFromWishlist(this)">
+  <i class="bi bi-cart-plus"></i> Add to Cart
+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- product 11 -->
+    <div class="col">
+      <div class="product-card">
+        <div class="card-wishlist-icon" onclick="toggleWishlist(this)"><i class="bi bi-heart"></i></div>
+        <div class="product-img-wrapper">
+          <img src="babyproducts2.jpg" alt="gift pack" class="product-img" />
+        </div>
+        <div class="product-body">
+          <div class="product-name">gift pack</div>
+          <div class="product-price">$250.00</div>
+          <div class="product-icons">
+            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star"></i>
+          </div>
+        <button class="btn-cart" onclick="addToCartAndRemoveFromWishlist(this)">
+  <i class="bi bi-cart-plus"></i> Add to Cart
+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- product 12 -->
+    <div class="col">
+      <div class="product-card">
+        <div class="card-wishlist-icon" onclick="toggleWishlist(this)"><i class="bi bi-heart"></i></div>
+        <div class="product-img-wrapper">
+          <img src="babypowder.jpg" alt="baby powder" class="product-img" />
+        </div>
+        <div class="product-body">
+          <div class="product-name">baby powder</div>
+          <div class="product-price">$199.00</div>
+          <div class="product-icons">
+            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i><i class="bi bi-star"></i><i class="bi bi-star"></i>
+          </div>
+         <button class="btn-cart" onclick="addToCartAndRemoveFromWishlist(this)">
+  <i class="bi bi-cart-plus"></i> Add to Cart
+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- horse toys -->
+    <div class="col">
+      <div class="product-card">
+        <div class="card-wishlist-icon" onclick="toggleWishlist(this)"><i class="bi bi-heart"></i></div>
+        <div class="product-img-wrapper">
+          <img src="horse toys.jpg" alt="horse toys" class="product-img" />
+        </div>
+        <div class="product-body">
+          <div class="product-name">horse toys</div>
+          <div class="product-price">$799.00</div>
+          <div class="product-icons">
+            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i><i class="bi bi-star"></i><i class="bi bi-star"></i>
+          </div>
+        <button class="btn-cart" onclick="addToCartAndRemoveFromWishlist(this)">
+  <i class="bi bi-cart-plus"></i> Add to Cart
+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- waterproof bibs -->
+    <div class="col">
+      <div class="product-card">
+        <div class="card-wishlist-icon" onclick="toggleWishlist(this)"><i class="bi bi-heart"></i></div>
+        <div class="product-img-wrapper">
+          <img src="waterproofbibs.jpg" alt="waterproof bibs" class="product-img" />
+        </div>
+        <div class="product-body">
+          <div class="product-name">waterproof bibs</div>
+          <div class="product-price">$199.00</div>
+          <div class="product-icons">
+            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i><i class="bi bi-star"></i><i class="bi bi-star"></i>
+          </div>
+        <button class="btn-cart" onclick="addToCartAndRemoveFromWishlist(this)">
+  <i class="bi bi-cart-plus"></i> Add to Cart
+</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ear decor hat -->
+    <div class="col">
+      <div class="product-card">
+        <div class="card-wishlist-icon" onclick="toggleWishlist(this)"><i class="bi bi-heart"></i></div>
+        <div class="product-img-wrapper">
+          <img src="eardecorhat.jpg" alt="ear decor hat" class="product-img" />
+        </div>
+        <div class="product-body">
+          <div class="product-name">ear decor hat</div>
+          <div class="product-price">$299.00</div>
+          <div class="product-icons">
+            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i><i class="bi bi-star"></i><i class="bi bi-star"></i>
+          </div>
+         <button class="btn-cart" onclick="addToCartAndRemoveFromWishlist(this)">
+  <i class="bi bi-cart-plus"></i> Add to Cart
+</button>
+        </div>
+      </div>
+    </div>
+  </div> <!-- row -->
+</div> <!-- shop-layout -->
+
+<section class="bh-footer-pink">
+
+  <div class="container">
+
+    <!-- Newsletter Top -->
+    <div class="bh-footer-newsletter text-center">
+      <h3>Join the BabyHaven Family 💗</h3>
+      <p>Get exclusive baby deals, dreamy picks & soft surprises.</p>
+
+      <form class="d-flex justify-content-center flex-wrap gap-3 mt-3">
+        <input type="email" class="bh-pink-input" placeholder="Enter your email">
+        <button class="bh-pink-btn">Subscribe</button>
+      </form>
+    </div>
+    
+
+    <hr class="bh-divider">
+
+    <!-- Footer Columns -->
+    <div class="row mt-5">
+
+      <div class="col-md-3 mb-4">
+        <h6>BabyHaven</h6>
+        <ul>
+          <li><a href="#">Our Story</a></li>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="col-md-3 mb-4">
+        <h6>Shop</h6>
+        <ul>
+          <li><a href="#">New Arrivals</a></li>
+          <li><a href="#">Best Sellers</a></li>
+          <li><a href="#">Gift Sets</a></li>
+          <li><a href="#">Organic Picks</a></li>
+        </ul>
+      </div>
+
+      <div class="col-md-3 mb-4">
+        <h6>Support</h6>
+        <ul>
+          <li><a href="#">Shipping Info</a></li>
+          <li><a href="#">Returns</a></li>
+          <li><a href="#">FAQs</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+        </ul>
+      </div>
+
+      <div class="col-md-3 mb-4">
+        <h6>Follow Us</h6>
+        <div class="bh-pink-social">
+          <i class="bi bi-facebook"></i>
+          <i class="bi bi-instagram"></i>
+          <i class="bi bi-twitter-x"></i>
+          <i class="bi bi-pinterest"></i>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom -->
+    <div class="bh-pink-bottom text-center mt-4">
+      © 2026 BabyHaven · Made with love for little stars ✨
+    </div>
+
+  </div>
+</section>
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- JavaScript to handle wishlist + cart clicks and update navbar counts -->
+
+<script>
+  // ==========================
+  // INITIAL COUNTS & LOAD
+  // ==========================
+  let wishlistCount = parseInt(localStorage.getItem('babyWishlistCount')) || 0;
+  let cartCount = parseInt(localStorage.getItem('babyCartCount')) || 0;
+
+  let wishlistItems = JSON.parse(localStorage.getItem('babyWishlistItems') || '[]');
+  let cartItems = JSON.parse(localStorage.getItem('babyCartItems') || '[]');
+
+  // ==========================
+  // UPDATE NAVBAR BADGES
+  // ==========================
+  function updateBadges() {
+    const wishlistEl = document.getElementById('wishlistCount');
+    const cartEl = document.getElementById('cartCount');
+
+    if (wishlistEl) wishlistEl.innerText = wishlistCount;
+    if (cartEl) cartEl.innerText = cartCount;
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    updateBadges();
+
+    // Restore wishlist heart states
+    document.querySelectorAll('.card-wishlist-icon').forEach(iconEl => {
+      const productCard = iconEl.closest('.product-card');
+      const productName = productCard.querySelector('.product-name').innerText;
+      if (wishlistItems.some(p => p.name === productName)) {
+        iconEl.classList.add('wishlist-active');
+        const icon = iconEl.querySelector('i');
+        icon.classList.replace('bi-heart', 'bi-heart-fill');
+      }
+    });
+  });
+
+  // ==========================
+  // TOGGLE WISHLIST FUNCTION
+  // ==========================
+  window.toggleWishlist = function(heartElement) {
+    const productCard = heartElement.closest('.product-card');
+    const product = {
+      name: productCard.querySelector('.product-name').innerText,
+      price: productCard.querySelector('.product-price').innerText,
+      img: productCard.querySelector('.product-img').src
+    };
+
+    const icon = heartElement.querySelector('i');
+
+    if (icon.classList.contains('bi-heart')) {
+      icon.classList.replace('bi-heart', 'bi-heart-fill');
+      heartElement.classList.add('wishlist-active');
+      wishlistCount++;
+      wishlistItems.push(product);
+    } else {
+      icon.classList.replace('bi-heart-fill', 'bi-heart');
+      heartElement.classList.remove('wishlist-active');
+      wishlistCount--;
+      wishlistItems = wishlistItems.filter(p => p.name !== product.name);
+    }
+
+    localStorage.setItem('babyWishlistCount', wishlistCount);
+    localStorage.setItem('babyWishlistItems', JSON.stringify(wishlistItems));
+    updateBadges();
+  };
+
+  // ==========================
+  // ADD TO CART FUNCTION
+  // ==========================
+  window.addToCart = function(buttonElement) {
+    const productCard = buttonElement.closest('.product-card');
+    const product = {
+      name: productCard.querySelector('.product-name').innerText,
+      price: productCard.querySelector('.product-price').innerText,
+      img: productCard.querySelector('.product-img').src,
+      quantity: 1
+    };
+
+    // Check if product already in cart
+    const existingIndex = cartItems.findIndex(p => p.name === product.name);
+    if (existingIndex > -1) {
+      cartItems[existingIndex].quantity += 1; // increment quantity
+    } else {
+      cartItems.push(product);
+    }
+
+    cartCount++;
+    localStorage.setItem('babyCartCount', cartCount);
+    localStorage.setItem('babyCartItems', JSON.stringify(cartItems));
+    updateBadges();
+    
+    // Optional: Show a quick feedback that item was added
+    buttonElement.innerHTML = '<i class="bi bi-check-lg"></i> Added!';
+    setTimeout(() => {
+      buttonElement.innerHTML = '<i class="bi bi-cart-plus"></i> Add to Cart';
+    }, 1000);
+  };
+
+  // ==========================
+  // ADD TO CART AND REMOVE FROM WISHLIST (if needed)
+  // ==========================
+  window.addToCartAndRemoveFromWishlist = function(buttonElement) {
+    // First add to cart
+    window.addToCart(buttonElement);
+    
+    // Then check if this product is in wishlist and remove it
+    const productCard = buttonElement.closest('.product-card');
+    const heartElement = productCard.querySelector('.card-wishlist-icon');
+    const icon = heartElement.querySelector('i');
+    
+    // If product is in wishlist (heart is filled), remove it
+    if (icon.classList.contains('bi-heart-fill')) {
+      // Trigger wishlist removal
+      const product = {
+        name: productCard.querySelector('.product-name').innerText,
+        price: productCard.querySelector('.product-price').innerText,
+        img: productCard.querySelector('.product-img').src
+      };
+      
+      icon.classList.replace('bi-heart-fill', 'bi-heart');
+      heartElement.classList.remove('wishlist-active');
+      wishlistCount--;
+      wishlistItems = wishlistItems.filter(p => p.name !== product.name);
+      
+      localStorage.setItem('babyWishlistCount', wishlistCount);
+      localStorage.setItem('babyWishlistItems', JSON.stringify(wishlistItems));
+      updateBadges();
+    }
+  };
+</script>
+</body>
+</html>

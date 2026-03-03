@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us · TinyTots</title>
+
+  <!-- Bootstrap 5 + Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+  <!-- soft, modern font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #fef9f7;  /* whisper pink */
+      font-family: 'Quicksand', sans-serif;
+      color: #4a3f44;
+    }
+
+    /* ===== NAVBAR (dreamy glassmorphism) ===== */
+    .navbar-custom {
+      background: rgba(255, 245, 248, 0.80);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      padding: 10px 0;
+      box-shadow: 0 8px 25px rgba(247, 157, 186, 0.15);
+      border-bottom: 1px solid #ffe2ed;
+    }
+
+    .navbar-brand {
+      font-weight: 700;
+      font-size: 2rem;
+      color: #c54778 !important;  · rich berry
+      letter-spacing: -0.3px;
+      transition: 0.2s;
+    }
+    .navbar-brand i {
+      color: #f992b5;
+      margin-right: 6px;
+    }
+    .navbar-brand:hover {
+      color: #d95b8c !important;
+      transform: scale(1.02);
+    }
+
+    .navbar-custom .nav-link {
+      color: #5a4852;
+      font-weight: 600;
+      margin: 0 6px;
+      padding: 8px 14px !important;
+      border-radius: 50px;
+      transition: 0.2s;
+    }
+    .navbar-custom .nav-link:hover,
+    .navbar-custom .nav-link.active {
+      background: #ffeaf1;
+      color: #bc4e7a;
+    }
+
+    /* icon group (search + cart) */
+    .nav-icon-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-left: 12px;
+    }
+    .icon-circle {
+      background: white;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 14px #fccfdf;
+      color: #d96f94;
+      font-size: 1.3rem;
+      cursor: default;
+      transition: 0.2s;
+    }
+    .icon-circle:hover {
+      background: #ffe2ed;
+      transform: scale(1.05);
+    }
+    .cart-badge {
+      background: #ff90b5;
+      color: white;
+      border-radius: 30px;
+      padding: 2px 8px;
+      font-size: 0.7rem;
+      font-weight: bold;
+      border: 2px solid white;
+      top: 2px;
+      right: -8px;
+    }
+
+    /* ===== MAIN CONTACT CARD (soft & dreamy) ===== */
+    .contact-wrapper {
+      max-width: 1200px;
+      margin: 50px auto;
+      padding: 0 20px;
+    }
+
+    .glass-card {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 40px;
+      padding: 40px 40px 30px;
+      box-shadow: 0 25px 50px -12px rgba(245, 150, 180, 0.35),
+                  inset 0 1px 3px rgba(255,255,255,0.9);
+      border: 1px solid rgba(255, 220, 235, 0.6);
+    }
+
+    .section-title {
+      font-weight: 650;
+      color: #663a4c;
+      letter-spacing: -0.3px;
+      position: relative;
+      display: inline-block;
+      margin-bottom: 30px;
+    }
+    .section-title i {
+      color: #ff96bb;
+      margin-right: 10px;
+      font-size: 2rem;
+      vertical-align: middle;
+    }
+
+    /* form elements */
+    .form-control, .form-select {
+      border-radius: 30px;
+      border: 1px solid #ffe1eb;
+      background: rgba(255, 255, 255, 0.8);
+      padding: 12px 20px;
+      font-weight: 500;
+      color: #3f3340;
+      box-shadow: inset 0 2px 5px #fce7ef;
+      transition: 0.15s;
+    }
+    .form-control:focus, .form-select:focus {
+      border-color: #ffafcc;
+      box-shadow: 0 0 0 5px rgba(255, 160, 190, 0.25);
+      background: white;
+      outline: none;
+    }
+    .form-label {
+      font-weight: 600;
+      color: #7c536a;
+      margin-left: 12px;
+      margin-bottom: 6px;
+    }
+
+    .btn-baby {
+      background: linear-gradient(145deg, #ff9ebd, #ff87af);
+      border: none;
+      color: white;
+      font-weight: 700;
+      padding: 14px 35px;
+      border-radius: 60px;
+      font-size: 1.2rem;
+      letter-spacing: 0.5px;
+      box-shadow: 0 8px 18px #ffc1d4, 0 4px 8px #ffe2ed inset;
+      transition: 0.2s;
+      width: 100%;
+    }
+    .btn-baby:hover {
+      background: linear-gradient(145deg, #ff87af, #ff709b);
+      transform: translateY(-2px);
+      box-shadow: 0 14px 26px #fba9c4;
+    }
+
+    /* info panel (right side) */
+    .info-panel {
+      background: rgba(255, 245, 250, 0.5);
+      border-radius: 38px;
+      padding: 30px 25px;
+      height: 100%;
+      backdrop-filter: blur(6px);
+      border: 1px solid #ffe7f1;
+    }
+    .info-row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 24px;
+      padding: 6px 12px;
+      background: rgba(255, 255, 255, 0.4);
+      border-radius: 60px;
+      transition: 0.2s;
+    }
+    .info-row:hover {
+      background: #ffeef6;
+    }
+    .info-icon-big {
+      background: #ffdbe9;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.7rem;
+      color: #c65482;
+      margin-right: 15px;
+      box-shadow: 0 4px 8px #fcc5d8;
+    }
+    .info-text {
+      font-weight: 600;
+      color: #553b48;
+      margin: 0;
+    }
+    .info-text small {
+      font-size: 0.9rem;
+      color: #997888;
+      font-weight: 500;
+    }
+
+    .social-links a {
+      background: white;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      color: #ba6b8b;
+      margin-right: 12px;
+      box-shadow: 0 5px 12px #fbc1d6;
+      transition: 0.15s;
+    }
+    .social-links a:hover {
+      background: #ffd9e6;
+      color: #a13262;
+      transform: scale(1.1);
+    }
+
+    /* map container */
+    .map-container {
+      border-radius: 30px;
+      overflow: hidden;
+      box-shadow: 0 15px 30px -5px #fecfdf;
+      border: 3px solid white;
+      margin-top: 35px;
+    }
+    iframe {
+      display: block;
+      width: 100%;
+      height: 260px;
+    }
+
+    hr {
+      border: 2px dashed #ffc6da;
+      opacity: 0.7;
+      margin: 28px 0 18px;
+    }
+
+   /* ===== PINK FOOTER MODEL 2 ===== */
+
+.bh-footer-pink {
+  background: linear-gradient(180deg, #ffe6f0, #ffc9dc);
+  padding: 70px 0 30px;
+  border-radius: 60px 60px 0 0;
+  color: #5a2d42;
+}
+
+.bh-footer-newsletter h3 {
+  font-weight: 600;
+}
+
+.bh-footer-newsletter p {
+  color: #7a4c62;
+}
+
+.bh-pink-input {
+  border-radius: 50px;
+  padding: 12px 20px;
+  border: none;
+  width: 280px;
+}
+
+.bh-pink-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 105, 160, 0.3);
+}
+
+.bh-pink-btn {
+  background: #ff4d94;
+  color: white;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 50px;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.bh-pink-btn:hover {
+  background: #e63c83;
+}
+
+.bh-divider {
+  margin: 40px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.bh-footer-pink h6 {
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.bh-footer-pink ul {
+  list-style: none;
+  padding: 0;
+}
+
+.bh-footer-pink ul li {
+  margin-bottom: 10px;
+}
+
+.bh-footer-pink ul li a {
+  text-decoration: none;
+  color: #6e3f55;
+  transition: 0.3s;
+}
+
+.bh-footer-pink ul li a:hover {
+  color: #ff2f86;
+}
+
+.bh-pink-social i {
+  font-size: 1.3rem;
+  margin-right: 14px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.bh-pink-social i:hover {
+  transform: scale(1.2);
+  color: #ff2f86;
+}
+
+.bh-pink-bottom {
+  font-size: 0.9rem;
+  color: #7a4c62;
+}
+   /* icon group */
+    .nav-icon-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: 12px;
+    }
+    .icon-circle {
+      background: white;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 14px #fccfdf;
+      color: #d96f94;
+      font-size: 1.3rem;
+      transition: 0.2s;
+      position: relative;
+      cursor: default;
+    }
+    .icon-circle:hover { background: #ffe2ed; transform: scale(1.05); }
+    .cart-badge, .wishlist-badge {
+      background: #ff4d94;
+      color: white;
+      border-radius: 30px;
+      padding: 4px 16px;
+      font-size: 0.7rem;
+      font-weight: bold;
+      border: 2px solid white;
+      top: 2px;
+      right: -8px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ====================  NAVBAR (soft sticky)  ==================== -->
+<nav class="navbar navbar-expand-lg navbar-custom sticky-top">
+  <div class="container">
+    <a class="navbar-brand" href="#"><i class="bi bi-balloon-heart-fill"></i>BabyHaven</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon" style="filter: hue-rotate(320deg);"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto align-items-center">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="shop.html">Shop</a></li>
+        <li class="nav-item"><a class="nav-link" href="categories.html">Categories</a></li>
+        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+        <li class="nav-item"><a class="nav-link active" href="contact.html">Contact</a></li>
+        <!-- icon group with badge -->
+         <!-- icon group: search + wishlist (linked) + cart (linked) -->
+        <li class="nav-item nav-icon-group">
+          
+          <!-- wishlist icon with badge - now a link -->
+          <a class="icon-circle position-relative" href="wishlist.html" style="cursor: pointer;">
+            <i class="bi bi-suit-heart-fill"></i>
+            <span class="wishlist-badge position-absolute top-0 start-100 translate-middle" id="wishlistCount"></span>
+          </a>
+          <!-- cart icon with badge - now a link -->
+          <a class="icon-circle position-relative" href="cart.html" style="cursor: pointer;">
+            <i class="bi bi-handbag-fill"></i>
+            <span class="cart-badge position-absolute top-0 start-100 translate-middle" id="cartCount"></span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<!-- ====================  MAIN BEAUTIFUL CONTACT SECTION ==================== -->
+<div class="contact-wrapper">
+  <div class="glass-card">
+    <div class="row g-5 align-items-stretch">
+      
+      <!-- LEFT SIDE: FORM -->
+      <div class="col-lg-7">
+        <h2 class="section-title"><i class="bi bi-envelope-paper-heart-fill"></i> drop us a note</h2>
+        <form>
+          <div class="mb-4">
+            <label class="form-label">full name <span style="color:#ff80a5;">*</span></label>
+            <input type="text" class="form-control" placeholder="e.g., Sarah Johnson" required>
+          </div>
+          <div class="mb-4">
+            <label class="form-label">email address <span style="color:#ff80a5;">*</span></label>
+            <input type="email" class="form-control" placeholder="hello@littlefamily.com" required>
+          </div>
+          <div class="row mb-4">
+            <div class="col-md-6">
+              <label class="form-label">subject</label>
+              <input type="text" class="form-control" placeholder="Product inquiry">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">preferred reply</label>
+              <select class="form-select">
+                <option>email</option>
+                <option>phone</option>
+                <option>whatsapp</option>
+              </select>
+            </div>
+          </div>
+          <div class="mb-5">
+            <label class="form-label">your message <span style="color:#ff80a5;">*</span></label>
+            <textarea class="form-control" rows="4" placeholder="Hi TinyTots, I’d love to know more about..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-baby">💬 send with love</button>
+        </form>
+      </div>
+
+      <!-- RIGHT SIDE: INFO + SOCIAL + MAP preview -->
+      <div class="col-lg-5">
+        <div class="info-panel d-flex flex-column">
+          <h2 class="section-title" style="margin-top: -5px;"><i class="bi bi-shop-window"></i> our nest</h2>
+          
+          <!-- info rows (icon + text) -->
+          <div class="info-row">
+            <span class="info-icon-big"><i class="bi bi-geo-alt-fill"></i></span>
+            <div class="info-text">ottapalam, Kerala<br><small>near Lulu mall, India</small></div>
+          </div>
+          <div class="info-row">
+            <span class="info-icon-big"><i class="bi bi-telephone-fill"></i></span>
+            <div class="info-text">+91 98765 43210<br><small>mon–sat, 9am–8pm</small></div>
+          </div>
+          <div class="info-row">
+            <span class="info-icon-big"><i class="bi bi-envelope-fill"></i></span>
+            <div class="info-text">support@tinytots.com<br><small>reply within 4h 💕</small></div>
+          </div>
+          <div class="info-row">
+            <span class="info-icon-big"><i class="bi bi-clock-fill"></i></span>
+            <div class="info-text">Mon–Sat 9AM–8PM<br><small>sun: closed (family day)</small></div>
+          </div>
+
+          <hr>
+          <h5 class="mb-3" style="font-weight: 700; color:#a14069;">spread the love</h5>
+          <div class="social-links mb-4">
+            <a href="#"><i class="bi bi-facebook"></i></a>
+            <a href="#"><i class="bi bi-instagram"></i></a>
+            <a href="#"><i class="bi bi-twitter-x"></i></a>
+            <a href="#"><i class="bi bi-pinterest"></i></a>
+          </div>
+
+          <!-- mini map preview (embedded) – elegant -->
+          <div class="map-container mt-2">
+            <iframe 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d125747.31456223328!2d76.21062818867253!3d9.931232698460955!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b080d4c3f3d9a2f%3A0x3b080d4c3f3d9a2f!2sottapalam%2C%20Kerala!5e0!3m2!1sen!2sin!4v1711134567890!5m2!1sen!2sin"
+              style="border:0;" 
+              allowfullscreen="" 
+              loading="lazy">
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </div> <!-- end row -->
+  </div> <!-- end glass-card -->
+</div> <!-- end wrapper -->
+
+<!-- FOOTER (soft) -->
+<!-- ===== BABYHAVEN PINK FOOTER MODEL 2 ===== -->
+
+<section class="bh-footer-pink">
+
+  <div class="container">
+
+    <!-- Newsletter Top -->
+    <div class="bh-footer-newsletter text-center">
+      <h3>Join the BabyHaven Family 💗</h3>
+      <p>Get exclusive baby deals, dreamy picks & soft surprises.</p>
+
+      <form class="d-flex justify-content-center flex-wrap gap-3 mt-3">
+        <input type="email" class="bh-pink-input" placeholder="Enter your email">
+        <button class="bh-pink-btn">Subscribe</button>
+      </form>
+    </div>
+
+    <hr class="bh-divider">
+
+    <!-- Footer Columns -->
+    <div class="row mt-5">
+
+      <div class="col-md-3 mb-4">
+        <h6>BabyHaven</h6>
+        <ul>
+          <li><a href="#">Our Story</a></li>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="col-md-3 mb-4">
+        <h6>Shop</h6>
+        <ul>
+          <li><a href="#">New Arrivals</a></li>
+          <li><a href="#">Best Sellers</a></li>
+          <li><a href="#">Gift Sets</a></li>
+          <li><a href="#">Organic Picks</a></li>
+        </ul>
+      </div>
+
+      <div class="col-md-3 mb-4">
+        <h6>Support</h6>
+        <ul>
+          <li><a href="#">Shipping Info</a></li>
+          <li><a href="#">Returns</a></li>
+          <li><a href="#">FAQs</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+        </ul>
+      </div>
+
+      <div class="col-md-3 mb-4">
+        <h6>Follow Us</h6>
+        <div class="bh-pink-social">
+          <i class="bi bi-facebook"></i>
+          <i class="bi bi-instagram"></i>
+          <i class="bi bi-twitter-x"></i>
+          <i class="bi bi-pinterest"></i>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom -->
+    <div class="bh-pink-bottom text-center mt-4">
+      © 2026 BabyHaven · Made with love for little stars ✨
+    </div>
+
+  </div>
+</section>
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- small script to make active nav nice (optional) -->
+<script>
+  document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
+    if(link.href === window.location.href) link.classList.add('active');
+  });
+</script>
+<script>
+  // Load counts from localStorage (default 0 instead of 12/4)
+let wishlistCount = parseInt(localStorage.getItem('babyWishlistCount')) || 0;
+let cartCount = parseInt(localStorage.getItem('babyCartCount')) || 0;
+
+// Update badges safely
+function updateBadges() {
+  const wishlistEl = document.getElementById('wishlistCount');
+  const cartEl = document.getElementById('cartCount');
+
+  if (wishlistEl) wishlistEl.innerText = wishlistCount;
+  if (cartEl) cartEl.innerText = cartCount;
+}
+
+document.addEventListener('DOMContentLoaded', updateBadges);
+
+// Toggle wishlist
+window.toggleWishlist = function(heartElement) {
+  heartElement.classList.toggle('wishlist-active');
+
+  const icon = heartElement.querySelector('i');
+
+  if (icon.classList.contains('bi-heart')) {
+    icon.classList.replace('bi-heart', 'bi-heart-fill');
+    wishlistCount++;
+  } else {
+    icon.classList.replace('bi-heart-fill', 'bi-heart');
+    wishlistCount--;
+  }
+
+  localStorage.setItem('babyWishlistCount', wishlistCount);
+  updateBadges();
+};
+
+// Add to cart
+window.incrementCart = function() {
+  cartCount++;
+  localStorage.setItem('babyCartCount', cartCount);
+  updateBadges();
+};
+</script>
+
+</body>
+</html>

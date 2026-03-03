@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gallery · BabyHaven</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <!-- Google Font: Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(145deg, #fff9fb 0%, #ffeef4 100%);
+      font-family: 'Poppins', sans-serif;
+      color: #442b38;
+    }
+
+    /* ===== REFINED NAVBAR (cozy, modern) ===== */
+    .navbar-custom {
+      background: rgba(255, 240, 248, 0.85);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: 0 10px 25px -8px rgba(210, 80, 140, 0.2);
+      border-bottom: 1px solid rgba(255, 200, 220, 0.5);
+      padding: 14px 0;
+    }
+
+    .navbar-brand {
+      font-size: 2rem;
+      font-weight: 700;
+      background: linear-gradient(130deg, #c2185b, #e64980);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent !important;
+      letter-spacing: 1px;
+      transition: 0.2s;
+    }
+
+    .navbar-brand:hover {
+      transform: scale(1.02);
+    }
+
+    .navbar-nav .nav-link {
+      color: #553b48;
+      font-weight: 500;
+      margin: 0 8px;
+      padding: 8px 16px !important;
+      border-radius: 40px;
+      transition: 0.3s;
+      font-size: 1.05rem;
+      position: relative;
+    }
+
+    .navbar-nav .nav-link:hover {
+      background: rgba(255, 130, 180, 0.15);
+      color: #b82b6b;
+    }
+
+    .navbar-nav .nav-link.active {
+      background: linear-gradient(145deg, #ffdae9, #ffc4db);
+      color: #b1306b !important;
+      font-weight: 600;
+      box-shadow: 0 6px 14px rgba(255, 105, 160, 0.3);
+    }
+
+    .navbar-nav .nav-link:not(.active)::after {
+      content: '';
+      position: absolute;
+      width: 0%;
+      height: 2.5px;
+      background: linear-gradient(90deg, #ff99bb, #ff69b4);
+      left: 16px;
+      bottom: 5px;
+      border-radius: 2px;
+      transition: 0.3s ease;
+    }
+
+    .navbar-nav .nav-link:not(.active):hover::after {
+      width: calc(100% - 32px);
+    }
+
+    /* dropdown */
+    .dropdown-menu {
+      border-radius: 24px;
+      border: none;
+      padding: 12px 8px;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 16px 30px -10px rgba(214, 51, 132, 0.25);
+      border: 1px solid rgba(255, 210, 230, 0.6);
+      margin-top: 10px !important;
+    }
+
+    .dropdown-item {
+      border-radius: 40px;
+      padding: 10px 20px;
+      font-weight: 500;
+      color: #b63e72;
+      transition: 0.25s;
+    }
+
+    .dropdown-item:hover {
+      background: #ffddee;
+      color: #c2185b;
+      transform: translateX(6px);
+    }
+
+    @media (min-width: 992px) {
+      .dropdown:hover .dropdown-menu {
+        display: block;
+      }
+    }
+
+    /* icon circles */
+    .icon-circle {
+      background: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #d63384;
+      font-size: 1.3rem;
+      box-shadow: 0 4px 8px #ffb6c1;
+      transition: 0.2s;
+      cursor: pointer;
+    }
+
+    .icon-circle:hover {
+      background: #ffe4ed;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 14px rgba(214, 51, 132, 0.3);
+    }
+
+    .cart-badge {
+      background: #ff4d94;
+      color: white;
+      font-size: 0.6rem;
+      font-weight: 600;
+      padding: 4px 16px;
+      border-radius: 30px;
+    }
+
+    /* ===== GALLERY TITLE ===== */
+    .section-title {
+      text-align: center;
+      font-weight: 700;
+      background: linear-gradient(135deg, #d63384, #f06292);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin: 60px 0 20px;
+      font-size: 2.8rem;
+      letter-spacing: -0.3px;
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 100px;
+      height: 4px;
+      background: linear-gradient(90deg, #ff99bb, #ff69b4);
+      border-radius: 4px;
+      margin: 15px auto 0;
+    }
+
+    .gallery-tagline {
+      text-align: center;
+      color: #a55377;
+      font-size: 1.1rem;
+      margin-bottom: 40px;
+      font-weight: 300;
+    }
+
+    /* ===== GALLERY GRID (elevated) ===== */
+    .gallery-container {
+      max-width: 1400px;
+      margin: 0 auto 60px;
+      padding: 0 20px;
+    }
+
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 28px;
+      box-shadow: 0 18px 30px -8px rgba(210, 80, 140, 0.25);
+      transition: all 0.4s cubic-bezier(0.15, 0.75, 0.4, 1);
+      border: 3px solid white;
+      aspect-ratio: 1 / 1.1; /* subtle portrait */
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.7s ease;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-10px) scale(1.01);
+      box-shadow: 0 30px 50px -12px #d45d93;
+      border-color: #ffb8d2;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.08);
+    }
+
+    /* overlay – soft pink with blur */
+    .gallery-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(214, 51, 132, 0.65);
+      backdrop-filter: blur(3px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.2rem;
+      font-weight: 500;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      border-radius: 28px;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      letter-spacing: 0.5px;
+    }
+
+    .gallery-item:hover .gallery-overlay {
+      opacity: 1;
+    }
+
+    /* soft footer */
+    /* ===== PINK FOOTER MODEL 2 ===== */
+
+.bh-footer-pink {
+  background: linear-gradient(180deg, #ffe6f0, #ffc9dc);
+  padding: 70px 0 30px;
+  border-radius: 60px 60px 0 0;
+  color: #5a2d42;
+}
+
+.bh-footer-newsletter h3 {
+  font-weight: 600;
+}
+
+.bh-footer-newsletter p {
+  color: #7a4c62;
+}
+
+.bh-pink-input {
+  border-radius: 50px;
+  padding: 12px 20px;
+  border: none;
+  width: 280px;
+}
+
+.bh-pink-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 105, 160, 0.3);
+}
+
+.bh-pink-btn {
+  background: #ff4d94;
+  color: white;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 50px;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.bh-pink-btn:hover {
+  background: #e63c83;
+}
+
+.bh-divider {
+  margin: 40px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.bh-footer-pink h6 {
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.bh-footer-pink ul {
+  list-style: none;
+  padding: 0;
+}
+
+.bh-footer-pink ul li {
+  margin-bottom: 10px;
+}
+
+.bh-footer-pink ul li a {
+  text-decoration: none;
+  color: #6e3f55;
+  transition: 0.3s;
+}
+
+.bh-footer-pink ul li a:hover {
+  color: #ff2f86;
+}
+
+.bh-pink-social i {
+  font-size: 1.3rem;
+  margin-right: 14px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.bh-pink-social i:hover {
+  transform: scale(1.2);
+  color: #ff2f86;
+}
+
+.bh-pink-bottom {
+  font-size: 0.9rem;
+  color: #7a4c62;
+}
+/* icon group */
+    .nav-icon-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: 12px;
+    }
+    .icon-circle {
+      background: white;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 14px #fccfdf;
+      color: #d96f94;
+      font-size: 1.3rem;
+      transition: 0.2s;
+      position: relative;
+      cursor: default;
+    }
+    .icon-circle:hover { background: #ffe2ed; transform: scale(1.05); }
+    .cart-badge, .wishlist-badge {
+      background: #ff4d94;
+      color: white;
+      border-radius: 30px;
+      padding: 4px 16px;
+      font-size: 0.7rem;
+      font-weight: bold;
+      border: 2px solid white;
+      top: 2px;
+      right: -8px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== FULLY STYLED NAVBAR ===== -->
+<nav class="navbar navbar-expand-lg navbar-custom sticky-top">
+  <div class="container">
+    <a class="navbar-brand" href="index.html"><i class="bi bi-cup-heart-fill me-2" style="color:#ff99bb;"></i>BabyHaven</a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon" style="filter: hue-rotate(320deg);"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto align-items-center">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="shop.html">Shop</a></li>
+        
+        <!-- Categories dropdown with active gallery -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Categories
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="categories.html"><i class="bi bi-tag me-2"></i>Our Products</a></li>
+            <li><a class="dropdown-item" href="services.html"><i class="bi bi-heart me-2"></i>Services</a></li>
+            <li><a class="dropdown-item active" href="gallery.html"><i class="bi bi-images me-2"></i>Gallery</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        
+         <li class="nav-item nav-icon-group">
+                    <!-- wishlist icon with badge - now a link -->
+          <a class="icon-circle position-relative" href="wishlist.html" style="cursor: pointer;">
+            <i class="bi bi-suit-heart-fill"></i>
+            <span class="wishlist-badge position-absolute top-0 start-100 translate-middle" id="wishlistCount"></span>
+          </a>
+          <!-- cart icon with badge - now a link -->
+          <a class="icon-circle position-relative" href="cart.html" style="cursor: pointer;">
+            <i class="bi bi-handbag-fill"></i>
+            <span class="cart-badge position-absolute top-0 start-100 translate-middle" id="cartCount"></span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== GALLERY HEADER ===== -->
+<h2 class="section-title">our gallery</h2>
+<p class="gallery-tagline">✨ precious moments, captured with love ✨</p>
+
+<!-- ===== GALLERY GRID ===== -->
+<div class="container gallery-container">
+  <div class="row g-4">
+
+    <!-- Image 1 -->
+    <div class="col-6 col-md-4 col-lg-3">
+      <div class="gallery-item">
+        <img src="baby lotion combo.jpg" alt="Baby romper set">
+        <div class="gallery-overlay">🌸 baby lotion combo</div>
+      </div>
+    </div>
+
+   
+
+    <!-- Image 4 -->
+    <div class="col-6 col-md-4 col-lg-3">
+      <div class="gallery-item">
+        <img src="BabyPowdercombo.jpg" alt="Baby powder combo">
+        <div class="gallery-overlay">🧴 powder combo</div>
+      </div>
+    </div>
+
+    <!-- Image 5 -->
+    <div class="col-6 col-md-4 col-lg-3">
+      <div class="gallery-item">
+        <img src="baby toys.jpg" alt="Baby toys">
+        <div class="gallery-overlay">🧸 baby toys</div>
+      </div>
+    </div>
+
+    <!-- Image 6 -->
+    <div class="col-6 col-md-4 col-lg-3">
+      <div class="gallery-item">
+        <img src="babyhealthcarekit.jpg" alt="Baby care kit">
+        <div class="gallery-overlay">🧼 baby healthcare kit</div>
+      </div>
+    </div>
+
+    
+    </div>
+
+  
+   
+
+  </div> <!-- row -->
+</div> <!-- container -->
+
+<!-- ===== SOFT FOOTER ===== -->
+<!-- ===== BABYHAVEN PINK FOOTER MODEL 2 ===== -->
+
+<section class="bh-footer-pink">
+
+  <div class="container">
+
+    <!-- Newsletter Top -->
+    <div class="bh-footer-newsletter text-center">
+      <h3>Join the BabyHaven Family 💗</h3>
+      <p>Get exclusive baby deals, dreamy picks & soft surprises.</p>
+
+      <form class="d-flex justify-content-center flex-wrap gap-3 mt-3">
+        <input type="email" class="bh-pink-input" placeholder="Enter your email">
+        <button class="bh-pink-btn">Subscribe</button>
+      </form>
+    </div>
+
+    <hr class="bh-divider">
+
+    <!-- Footer Columns -->
+    <div class="row mt-5">
+
+      <div class="col-md-3 mb-4">
+        <h6>BabyHaven</h6>
+        <ul>
+          <li><a href="#">Our Story</a></li>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="col-md-3 mb-4">
+        <h6>Shop</h6>
+        <ul>
+          <li><a href="#">New Arrivals</a></li>
+          <li><a href="#">Best Sellers</a></li>
+          <li><a href="#">Gift Sets</a></li>
+          <li><a href="#">Organic Picks</a></li>
+        </ul>
+      </div>
+
+      <div class="col-md-3 mb-4">
+        <h6>Support</h6>
+        <ul>
+          <li><a href="#">Shipping Info</a></li>
+          <li><a href="#">Returns</a></li>
+          <li><a href="#">FAQs</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+        </ul>
+      </div>
+
+      <div class="col-md-3 mb-4">
+        <h6>Follow Us</h6>
+        <div class="bh-pink-social">
+          <i class="bi bi-facebook"></i>
+          <i class="bi bi-instagram"></i>
+          <i class="bi bi-twitter-x"></i>
+          <i class="bi bi-pinterest"></i>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom -->
+    <div class="bh-pink-bottom text-center mt-4">
+      © 2026 BabyHaven · Made with love for little stars ✨
+    </div>
+
+  </div>
+</section>
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  // Load counts from localStorage (default 0 instead of 12/4)
+let wishlistCount = parseInt(localStorage.getItem('babyWishlistCount')) || 0;
+let cartCount = parseInt(localStorage.getItem('babyCartCount')) || 0;
+
+// Update badges safely
+function updateBadges() {
+  const wishlistEl = document.getElementById('wishlistCount');
+  const cartEl = document.getElementById('cartCount');
+
+  if (wishlistEl) wishlistEl.innerText = wishlistCount;
+  if (cartEl) cartEl.innerText = cartCount;
+}
+
+document.addEventListener('DOMContentLoaded', updateBadges);
+
+// Toggle wishlist
+window.toggleWishlist = function(heartElement) {
+  heartElement.classList.toggle('wishlist-active');
+
+  const icon = heartElement.querySelector('i');
+
+  if (icon.classList.contains('bi-heart')) {
+    icon.classList.replace('bi-heart', 'bi-heart-fill');
+    wishlistCount++;
+  } else {
+    icon.classList.replace('bi-heart-fill', 'bi-heart');
+    wishlistCount--;
+  }
+
+  localStorage.setItem('babyWishlistCount', wishlistCount);
+  updateBadges();
+};
+
+// Add to cart
+window.incrementCart = function() {
+  cartCount++;
+  localStorage.setItem('babyCartCount', cartCount);
+  updateBadges();
+};
+</script>
+</body>
+</html>

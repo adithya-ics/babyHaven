@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About Us · BabyHaven</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <!-- Google Font: Poppins (soft, modern) -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #fff9fc;
+      color: #442b38;
+      line-height: 1.6;
+    }
+
+    /* ----- refined navbar (cozy & modern) ----- */
+    .navbar-custom {
+      background: rgba(255, 240, 248, 0.85);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: 0 10px 25px -8px rgba(210, 80, 140, 0.2);
+      border-bottom: 1px solid rgba(255, 200, 220, 0.5);
+      padding: 14px 0;
+    }
+
+    .navbar-brand {
+      font-size: 2rem;
+      font-weight: 700;
+      background: linear-gradient(130deg, #c2185b, #e64980);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent !important;
+      letter-spacing: 1px;
+      transition: 0.2s;
+    }
+
+    .navbar-brand:hover {
+      transform: scale(1.02);
+      background: linear-gradient(130deg, #e64980, #c2185b);
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+
+    .navbar-nav .nav-link {
+      color: #553b48;
+      font-weight: 500;
+      margin: 0 8px;
+      padding: 8px 16px !important;
+      border-radius: 40px;
+      transition: 0.3s;
+      font-size: 1.05rem;
+      position: relative;
+    }
+
+    .navbar-nav .nav-link:hover {
+      background: rgba(255, 130, 180, 0.15);
+      color: #b82b6b;
+    }
+
+    .navbar-nav .nav-link.active {
+      background: linear-gradient(145deg, #ffdae9, #ffc4db);
+      color: #b1306b !important;
+      font-weight: 600;
+      box-shadow: 0 6px 14px rgba(255, 105, 160, 0.3);
+    }
+
+    .navbar-nav .nav-link:not(.active)::after {
+      content: '';
+      position: absolute;
+      width: 0%;
+      height: 2.5px;
+      background: linear-gradient(90deg, #ff99bb, #ff69b4);
+      left: 16px;
+      bottom: 5px;
+      border-radius: 2px;
+      transition: 0.3s ease;
+    }
+
+    .navbar-nav .nav-link:not(.active):hover::after {
+      width: calc(100% - 32px);
+    }
+
+    /* ----- about section (elevated) ----- */
+    .about-section {
+      background: linear-gradient(145deg, #fff2f8 0%, #ffeaf3 100%);
+      padding: 80px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* soft decorative circles */
+    .about-section::before {
+      content: '';
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(255,200,230,0.3) 0%, transparent 70%);
+      top: -100px;
+      right: -50px;
+      border-radius: 50%;
+      z-index: 0;
+    }
+
+    .about-section::after {
+      content: '';
+      position: absolute;
+      width: 250px;
+      height: 250px;
+      background: radial-gradient(circle, rgba(255,180,210,0.2) 0%, transparent 70%);
+      bottom: -50px;
+      left: -30px;
+      border-radius: 50%;
+      z-index: 0;
+    }
+
+    .about-container {
+      position: relative;
+      z-index: 2;
+    }
+
+    .about-image-wrapper {
+      border-radius: 30px;
+      overflow: hidden;
+      box-shadow: 0 25px 40px -12px rgba(200, 80, 140, 0.35);
+      border: 5px solid white;
+      transition: 0.4s ease;
+      max-width: 440px;
+      margin: 0 auto;
+    }
+
+    .about-image-wrapper:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 35px 50px -15px #d45d93;
+    }
+
+    .about-image-wrapper img {
+      width: 100%;
+      height: 380px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.8s ease;
+    }
+
+    .about-image-wrapper:hover img {
+      transform: scale(1.05);
+    }
+
+    .about-content {
+      padding-left: 30px;
+    }
+
+    .about-content h2 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #c2185b, #e64980);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 20px;
+      letter-spacing: -0.02em;
+      position: relative;
+    }
+
+    .about-content h2::after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(90deg, #ff99bb, #ff69b4);
+      border-radius: 4px;
+      margin-top: 10px;
+    }
+
+    .about-content p {
+      color: #553b48;
+      font-size: 1.05rem;
+      margin-bottom: 20px;
+      line-height: 1.8;
+      font-weight: 400;
+    }
+
+    .about-content strong {
+      color: #c2185b;
+      font-weight: 600;
+    }
+
+    .about-btn {
+      background: linear-gradient(135deg, #ff9fcb, #ff80b3);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      padding: 14px 36px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      transition: 0.3s ease;
+      box-shadow: 0 10px 20px -5px #f7a9c8;
+      border: 1px solid rgba(255,255,255,0.4);
+      font-size: 1.05rem;
+    }
+
+    .about-btn i {
+      margin-right: 8px;
+      font-size: 1.2rem;
+    }
+
+    .about-btn:hover {
+      background: linear-gradient(135deg, #ff80b3, #ff4d94);
+      transform: translateY(-4px);
+      box-shadow: 0 18px 30px -5px #e6739f;
+    }
+
+    /* value badges (extra charm) */
+    .value-badge {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(4px);
+      padding: 8px 18px;
+      border-radius: 40px;
+      color: #b82b6b;
+      font-weight: 500;
+      margin-right: 12px;
+      margin-bottom: 10px;
+      border: 1px solid white;
+      box-shadow: 0 5px 12px rgba(255, 190, 220, 0.3);
+    }
+
+    .value-badge i {
+      color: #ff69b4;
+      margin-right: 6px;
+    }
+
+    /* responsive */
+    @media (max-width: 768px) {
+      .about-content {
+        padding-left: 0;
+        text-align: center;
+        margin-top: 30px;
+      }
+      .about-content h2::after {
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .about-image-wrapper {
+        max-width: 360px;
+      }
+    }
+
+    /* soft footer */
+    /* ===== PINK FOOTER MODEL 2 ===== */
+
+.bh-footer-pink {
+  background: linear-gradient(180deg, #ffe6f0, #ffc9dc);
+  padding: 70px 0 30px;
+  border-radius: 60px 60px 0 0;
+  color: #5a2d42;
+}
+
+.bh-footer-newsletter h3 {
+  font-weight: 600;
+}
+
+.bh-footer-newsletter p {
+  color: #7a4c62;
+}
+
+.bh-pink-input {
+  border-radius: 50px;
+  padding: 12px 20px;
+  border: none;
+  width: 280px;
+}
+
+.bh-pink-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 105, 160, 0.3);
+}
+
+.bh-pink-btn {
+  background: #ff4d94;
+  color: white;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 50px;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.bh-pink-btn:hover {
+  background: #e63c83;
+}
+
+.bh-divider {
+  margin: 40px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.bh-footer-pink h6 {
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.bh-footer-pink ul {
+  list-style: none;
+  padding: 0;
+}
+
+.bh-footer-pink ul li {
+  margin-bottom: 10px;
+}
+
+.bh-footer-pink ul li a {
+  text-decoration: none;
+  color: #6e3f55;
+  transition: 0.3s;
+}
+
+.bh-footer-pink ul li a:hover {
+  color: #ff2f86;
+}
+
+.bh-pink-social i {
+  font-size: 1.3rem;
+  margin-right: 14px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.bh-pink-social i:hover {
+  transform: scale(1.2);
+  color: #ff2f86;
+}
+
+.bh-pink-bottom {
+  font-size: 0.9rem;
+  color: #7a4c62;
+}
+ /* icon group */
+    .nav-icon-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: 12px;
+    }
+    .icon-circle {
+      background: white;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 14px #fccfdf;
+      color: #d96f94;
+      font-size: 1.3rem;
+      transition: 0.2s;
+      position: relative;
+      cursor: default;
+    }
+    .icon-circle:hover { background: #ffe2ed; transform: scale(1.05); }
+    .cart-badge, .wishlist-badge {
+      background: #ff4d94;
+      color: white;
+      border-radius: 30px;
+      padding: 4px 16px;
+      font-size: 0.7rem;
+      font-weight: bold;
+      border: 2px solid white;
+      top: 2px;
+      right: -8px;
+    }
+
+  </style>
+</head>
+<body>
+
+<!-- ===== refined navbar ===== -->
+<nav class="navbar navbar-expand-lg navbar-custom sticky-top">
+  <div class="container">
+    <a class="navbar-brand" href="index.html"><i class="bi bi-cup-heart-fill me-2" style="color:#ff99bb;"></i>BabyHaven</a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon" style="filter: hue-rotate(320deg);"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto align-items-center">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="shop.html">Shop</a></li>
+        <li class="nav-item"><a class="nav-link" href="categories.html">Categories</a></li>
+        <li class="nav-item"><a class="nav-link active" href="about.html">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        <!-- subtle icons -->
+         <li class="nav-item nav-icon-group">
+          
+          <!-- wishlist icon with badge - now a link -->
+          <a class="icon-circle position-relative" href="wishlist.html" style="cursor: pointer;">
+            <i class="bi bi-suit-heart-fill"></i>
+            <span class="wishlist-badge position-absolute top-0 start-100 translate-middle" id="wishlistCount"></span>
+          </a>
+          <!-- cart icon with badge - now a link -->
+          <a class="icon-circle position-relative" href="cart.html" style="cursor: pointer;">
+            <i class="bi bi-handbag-fill"></i>
+            <span class="cart-badge position-absolute top-0 start-100 translate-middle" id="cartCount"></span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== about section (beautiful upgrade) ===== -->
+<section class="about-section">
+  <div class="container about-container">
+    <div class="row align-items-center g-5">
+      
+      <!-- image column -->
+      <div class="col-lg-6">
+        <div class="about-image-wrapper">
+          <img src="babyabout.jpg" alt="BabyHaven – cozy baby products">
+        </div>
+        <!-- floating badges (optional, just for charm) -->
+        <div class="mt-4 text-center text-lg-start">
+          <span class="value-badge"><i class="bi bi-check-lg"></i> organic cotton</span>
+          <span class="value-badge"><i class="bi bi-check-lg"></i> safety first</span>
+          <span class="value-badge"><i class="bi bi-check-lg"></i> ethical sourcing</span>
+        </div>
+      </div>
+
+      <!-- content column -->
+      <div class="col-lg-6">
+        <div class="about-content">
+          <h2>About BabyHaven</h2>
+          <p>
+            At <strong>BABYHAVEN</strong>, we believe every baby deserves comfort, care, and love.  
+            Our mission is to provide high-quality baby essentials that are safe, stylish, and affordable.
+          </p>
+          <p>
+            From adorable clothing to must-have accessories, we carefully select each product  
+            to ensure the best for your little ones. We meticulously test for safety, durability,  
+            and softness — because your baby’s skin deserves nothing less.
+          </p>
+          <p>
+            We carefully select every product to meet strict standards of safety, durability,  
+            and comfort. Our collections are designed for modern parents who want both quality and style.
+          </p>
+          <p>
+            Join us in creating a nurturing environment where your baby can grow happily and healthily,  
+            wrapped in the best BabyHaven has to offer.
+          </p>
+          
+          <!-- trust icons row (extra gentle touch) -->
+          <div class="d-flex gap-4 mt-4 flex-wrap">
+            <div><i class="bi bi-heart-fill" style="color:#ff69b4;"></i> <span class="ms-2">10k+ happy parents</span></div>
+            <div><i class="bi bi-shield-check" style="color:#ff69b4;"></i> <span class="ms-2">certified safe</span></div>
+            <div><i class="bi bi-truck" style="color:#ff69b4;"></i> <span class="ms-2">free shipping $45+</span></div>
+          </div>
+
+          <a href="#" class="btn about-btn mt-5"><i class="bi bi-arrow-right-circle"></i> learn more about us</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== BABYHAVEN PINK FOOTER MODEL 2 ===== -->
+
+<section class="bh-footer-pink">
+
+  <div class="container">
+
+    <!-- Newsletter Top -->
+    <div class="bh-footer-newsletter text-center">
+      <h3>Join the BabyHaven Family 💗</h3>
+      <p>Get exclusive baby deals, dreamy picks & soft surprises.</p>
+
+      <form class="d-flex justify-content-center flex-wrap gap-3 mt-3">
+        <input type="email" class="bh-pink-input" placeholder="Enter your email">
+        <button class="bh-pink-btn">Subscribe</button>
+      </form>
+    </div>
+
+    <hr class="bh-divider">
+
+    <!-- Footer Columns -->
+    <div class="row mt-5">
+
+      <div class="col-md-3 mb-4">
+        <h6>BabyHaven</h6>
+        <ul>
+          <li><a href="#">Our Story</a></li>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="col-md-3 mb-4">
+        <h6>Shop</h6>
+        <ul>
+          <li><a href="#">New Arrivals</a></li>
+          <li><a href="#">Best Sellers</a></li>
+          <li><a href="#">Gift Sets</a></li>
+          <li><a href="#">Organic Picks</a></li>
+        </ul>
+      </div>
+
+      <div class="col-md-3 mb-4">
+        <h6>Support</h6>
+        <ul>
+          <li><a href="#">Shipping Info</a></li>
+          <li><a href="#">Returns</a></li>
+          <li><a href="#">FAQs</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+        </ul>
+      </div>
+
+      <div class="col-md-3 mb-4">
+        <h6>Follow Us</h6>
+        <div class="bh-pink-social">
+          <i class="bi bi-facebook"></i>
+          <i class="bi bi-instagram"></i>
+          <i class="bi bi-twitter-x"></i>
+          <i class="bi bi-pinterest"></i>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom -->
+    <div class="bh-pink-bottom text-center mt-4">
+      © 2026 BabyHaven · Made with love for little stars ✨
+    </div>
+
+  </div>
+</section>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // Load counts from localStorage (default 0 instead of 12/4)
+let wishlistCount = parseInt(localStorage.getItem('babyWishlistCount')) || 0;
+let cartCount = parseInt(localStorage.getItem('babyCartCount')) || 0;
+
+// Update badges safely
+function updateBadges() {
+  const wishlistEl = document.getElementById('wishlistCount');
+  const cartEl = document.getElementById('cartCount');
+
+  if (wishlistEl) wishlistEl.innerText = wishlistCount;
+  if (cartEl) cartEl.innerText = cartCount;
+}
+
+document.addEventListener('DOMContentLoaded', updateBadges);
+
+// Toggle wishlist
+window.toggleWishlist = function(heartElement) {
+  heartElement.classList.toggle('wishlist-active');
+
+  const icon = heartElement.querySelector('i');
+
+  if (icon.classList.contains('bi-heart')) {
+    icon.classList.replace('bi-heart', 'bi-heart-fill');
+    wishlistCount++;
+  } else {
+    icon.classList.replace('bi-heart-fill', 'bi-heart');
+    wishlistCount--;
+  }
+
+  localStorage.setItem('babyWishlistCount', wishlistCount);
+  updateBadges();
+};
+
+// Add to cart
+window.incrementCart = function() {
+  cartCount++;
+  localStorage.setItem('babyCartCount', cartCount);
+  updateBadges();
+};
+</script>
+</body>
+</html>

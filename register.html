@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register | Little Sunshine Baby Store</title>
+    <link rel="stylesheet" href="style.css">
+    <style type="text/css">
+        
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #ffd6e8, #d6f0ff);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header */
+header {
+    background-color: #fff;
+    padding: 15px 30px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+    color: #ff6f91;
+}
+
+/* Register Section */
+.register-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.register-box {
+    background: #ffffff;
+    width: 100%;
+    max-width: 420px;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+    position: relative;
+}
+
+.register-box h2 {
+    text-align: center;
+    color: #444;
+}
+
+.subtitle {
+    text-align: center;
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 20px;
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #555;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    transition: 0.3s;
+}
+
+.input-group input:focus {
+    border-color: #ff6f91;
+    outline: none;
+}
+
+/* Button */
+.btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #ff6f91;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background-color: #ff4f7a;
+}
+
+.login-link {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.login-link a {
+    color: #ff6f91;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}
+
+/* Success message */
+.success-message {
+    display: none;
+    text-align: center;
+    margin-top: 15px;
+    color: #28a745;
+    font-weight: bold;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 15px;
+    font-size: 13px;
+    color: #666;
+}
+.back-arrow {
+    margin-bottom: 20px;
+}
+
+.back-arrow a {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    background-color: #ff6f91; /* Pink color */
+    color: white;
+    font-size: 20px;
+    text-decoration: none;
+    border-radius: 50%; /* Makes it circular */
+    transition: 0.3s;
+}
+
+.back-arrow a:hover {
+    background-color: #ff4f7a; /* Darker pink on hover */
+    transform: scale(1.1); /* Slight zoom effect */
+}
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">🧸 BabyHaven</div>
+</header>
+
+<div class="register-container">
+    <div class="register-box">
+        <div class="back-arrow">
+        <a href="index.html">← </a>
+    </div>
+        <h2>Create Your Account</h2>
+        <p class="subtitle">Join our baby care family 💕</p>
+
+        <form id="registerForm">
+            <div class="input-group">
+                <label>Full Name</label>
+                <input type="text" placeholder="Enter your full name" required>
+            </div>
+
+            <div class="input-group">
+                <label>Email Address</label>
+                <input type="email" placeholder="Enter your email" required>
+            </div>
+
+            <div class="input-group">
+                <label>Phone Number</label>
+                <input type="tel" placeholder="Enter your phone number" required>
+            </div>
+
+            <div class="input-group">
+                <label>Password</label>
+                <input type="password" placeholder="Create password" required>
+            </div>
+
+            <div class="input-group">
+                <label>Confirm Password</label>
+                <input type="password" placeholder="Confirm password" required>
+            </div>
+
+            <button type="submit" class="btn">Register</button>
+            <p class="login-link">
+                Already have an account? <a href="login.html.">Login</a>
+            </p>
+        </form>
+
+        <!-- Success message -->
+        <p id="successMessage" class="success-message">🎉 Registration Successful!</p>
+    </div>
+</div>
+
+<footer>
+    <p>© 2026 Little Sunshine Baby Store. All rights reserved.</p>
+</footer>
+
+<script>
+    const form = document.getElementById('registerForm');
+    const successMessage = document.getElementById('successMessage');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault(); // Prevent form from submitting
+        successMessage.style.display = 'block'; // Show success message
+        form.reset(); // Reset form fields
+    });
+</script>
+
+</body>
+</html>

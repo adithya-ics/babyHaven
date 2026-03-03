@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BabyHaven · Wishlist</title>
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Bootstrap Icons -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+<!-- Google Font: Poppins -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Poppins', sans-serif; background: linear-gradient(145deg,#fff9fb 0%,#ffeef4 100%); color:#4a2c3a; }
+.navbar-custom { background: rgba(255,240,248,0.85); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); box-shadow: 0 10px 25px -8px rgba(210,80,140,0.2); border-bottom: 1px solid rgba(255,200,220,0.5); padding:14px 0; }
+.navbar-brand { font-size:2rem; font-weight:700; background: linear-gradient(130deg,#c2185b,#e64980); -webkit-background-clip:text; background-clip:text; color:transparent !important; letter-spacing:1px; }
+.navbar-brand:hover { transform:scale(1.02); }
+.navbar-nav .nav-link { color:#553b48; font-weight:500; margin:0 8px; padding:8px 16px !important; border-radius:40px; }
+.navbar-nav .nav-link:hover { background: rgba(255,130,180,0.15); color:#b82b6b; }
+.navbar-nav .nav-link.active { background: linear-gradient(145deg,#ffdae9,#ffc4db); color:#b1306b !important; font-weight:600; box-shadow:0 6px 14px rgba(255,105,160,0.3);}
+.nav-icon-group { display:flex; align-items:center; gap:8px; margin-left:12px; }
+.icon-circle { background:white; width:42px; height:42px; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 6px 14px #fccfdf; color:#d96f94; font-size:1.3rem; transition:0.2s; position:relative; cursor:default; }
+.icon-circle:hover { background:#ffe2ed; transform:scale(1.05); }
+.badge-bubble { position:absolute; top:-6px; right:-6px; background:#ff4d94; color:white; font-size:11px; font-weight:600; padding:3px 7px; border-radius:50px; border:2px solid white; min-width:20px; text-align:center; box-shadow:0 4px 10px rgba(255,77,148,0.4);}
+.badge-bubble:empty { display:none; }
+.shop-layout { width:96%; max-width:1600px; margin:40px auto 80px; }
+.product-card { background:white; border-radius:32px; overflow:hidden; box-shadow:0 18px 35px -8px rgba(210,80,140,0.2); transition:all 0.35s; text-align:center; border:1px solid rgba(255,210,230,0.7); display:flex; flex-direction:column; height:100%; position:relative; }
+.product-card:hover { transform: translateY(-8px) scale(1.01); box-shadow:0 28px 50px -12px #d45d93; border-color:#ffb8d2; }
+.product-img-wrapper { overflow:hidden; aspect-ratio:1 / 1.1; background:#fff1f7; padding:10px; }
+.product-img { width:100%; height:260px; object-fit:cover; transition: transform 0.7s ease; border-radius:24px 24px 12px 12px; }
+.product-name { font-weight:600; font-size:1.1rem; color:#7d4d65; margin-bottom:8px; text-transform:capitalize; }
+.product-price { font-weight:700; font-size:1.5rem; background:linear-gradient(135deg,#ff2891,#c9216b); -webkit-background-clip:text; background-clip:text; color:transparent; margin-bottom:10px; }
+.btn-cart { background: linear-gradient(135deg,#ff9fcb,#ff80b3); border:none; color:white; font-weight:600; font-size:0.95rem; padding:12px 10px; border-radius:40px; transition:0.3s; box-shadow:0 5px 12px rgba(255,110,170,0.4); width:85%; margin:0 auto; display:flex; align-items:center; justify-content:center; gap:8px; border:1px solid rgba(255,255,255,0.4); text-transform:uppercase; letter-spacing:0.7px; cursor:pointer; }
+.btn-cart:hover { background: linear-gradient(135deg,#ff80b3,#ff4d94); transform:scale(1.05); box-shadow:0 10px 20px #f598bc; }
+.btn-remove { background: #ff6b91; border:none; color:white; font-weight:600; font-size:0.95rem; padding:12px 10px; border-radius:40px; transition:0.3s; box-shadow:0 5px 12px rgba(255,110,170,0.4); width:85%; margin:0 auto; display:flex; align-items:center; justify-content:center; gap:8px; border:1px solid rgba(255,255,255,0.4); text-transform:uppercase; letter-spacing:0.7px; cursor:pointer; }
+.btn-remove:hover { background: #ff4d94; transform:scale(1.05); }
+.section-greeting { text-align:center; margin:50px 0 20px; }
+.section-greeting h2 { font-size:2.5rem; font-weight:600; background:linear-gradient(145deg,#d4508f,#f07bac); -webkit-background-clip:text; background-clip:text; color:transparent; }
+.section-greeting p { font-size:1.2rem; color:#a1617c; }
+.empty-wishlist {
+  text-align: center;
+  padding: 60px 20px;
+  background: white;
+  border-radius: 40px;
+  box-shadow: 0 18px 35px -8px rgba(210,80,140,0.2);
+  margin: 40px auto;
+  max-width: 500px;
+}
+.empty-wishlist i {
+  font-size: 4rem;
+  color: #ffb0d0;
+}
+.empty-wishlist p {
+  font-size: 1.3rem;
+  color: #7d4d65;
+  margin: 20px 0;
+}
+.btn-shop {
+  background: linear-gradient(135deg,#ff9fcb,#ff80b3);
+  border: none;
+  color: white;
+  font-weight: 600;
+  padding: 12px 30px;
+  border-radius: 40px;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s;
+}
+.btn-shop:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px #f598bc;
+}
+</style>
+</head>
+<body>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-custom sticky-top">
+  <div class="container">
+    <a class="navbar-brand" href="index.html"><i class="bi bi-cup-heart-fill me-2" style="color:#ff80b3;"></i>BabyHaven</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon" style="filter:hue-rotate(320deg)"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto align-items-center">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="shop.html">Shop</a></li>
+       
+       
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        <li class="nav-item nav-icon-group">
+          
+          <a href="wishlist.html" class="icon-circle position-relative text-decoration-none">
+            <i class="bi bi-suit-heart-fill"></i>
+            <span id="wishlistCount" class="badge-bubble">0</span>
+          </a>
+          <a href="cart.html" class="icon-circle position-relative text-decoration-none">
+            <i class="bi bi-handbag-fill"></i>
+            <span id="cartCount" class="badge-bubble">0</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Page Greeting -->
+<div class="section-greeting">
+  <h2>your wishlist</h2>
+  <p>💗 products you've added to your wishlist will appear here</p>
+</div>
+
+<!-- Wishlist Layout -->
+<div class="shop-layout">
+  <div class="row g-4 row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5" id="wishlistContainer">
+    <!-- Wishlist items will be injected here -->
+  </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // ==========================
+  // LOAD DATA FROM LOCALSTORAGE
+  // ==========================
+  let wishlistItems = JSON.parse(localStorage.getItem('babyWishlistItems') || '[]');
+  let cartItems = JSON.parse(localStorage.getItem('babyCartItems') || '[]');
+  
+  // Calculate counts from arrays (not from stored counts)
+  let wishlistCount = wishlistItems.length;
+  let cartCount = cartItems.reduce((total, item) => total + (item.quantity || 1), 0);
+
+  // ==========================
+  // UPDATE NAVBAR BADGES
+  // ==========================
+  function updateBadges() {
+    const wishlistEl = document.getElementById('wishlistCount');
+    const cartEl = document.getElementById('cartCount');
+    
+    // Update counts from current arrays
+    wishlistCount = wishlistItems.length;
+    cartCount = cartItems.reduce((total, item) => total + (item.quantity || 1), 0);
+    
+    if (wishlistEl) wishlistEl.innerText = wishlistCount;
+    if (cartEl) cartEl.innerText = cartCount;
+    
+    // Also update localStorage counts for other pages
+    localStorage.setItem('babyWishlistCount', wishlistCount);
+    localStorage.setItem('babyCartCount', cartCount);
+  }
+
+  // ==========================
+  // RENDER WISHLIST ITEMS
+  // ==========================
+  function renderWishlist() {
+    const container = document.getElementById('wishlistContainer');
+    container.innerHTML = ''; // Clear container first
+
+    if (wishlistItems.length === 0) {
+      container.innerHTML = `
+        <div class="empty-wishlist">
+          <i class="bi bi-heart"></i>
+          <p>Your wishlist is empty 💔</p>
+          <a href="shop.html" class="btn-shop">
+            <i class="bi bi-bag-heart"></i> Continue Shopping
+          </a>
+        </div>
+      `;
+      return;
+    }
+
+    wishlistItems.forEach((item, index) => {
+      const col = document.createElement('div');
+      col.className = 'col';
+      col.innerHTML = `
+        <div class="product-card">
+          <div class="product-img-wrapper">
+            <img src="${item.img}" alt="${item.name}" class="product-img">
+          </div>
+          <div class="product-body">
+            <div class="product-name">${item.name}</div>
+            <div class="product-price">${item.price}</div>
+            <div class="d-flex justify-content-center gap-2 mt-2">
+              <button class="btn-cart" onclick="addToCartAndRemove(${index})">
+                <i class="bi bi-cart-plus"></i> add to cart
+              </button>
+              <button class="btn-remove" onclick="removeFromWishlist(${index})">
+                <i class="bi bi-trash"></i> remove
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+      container.appendChild(col);
+    });
+  }
+
+  // ==========================
+  // ADD TO CART AND REMOVE FROM WISHLIST
+  // ==========================
+  function addToCartAndRemove(index) {
+    const item = wishlistItems[index];
+    
+    // Check if item already exists in cart
+    const existingCartItem = cartItems.find(cartItem => cartItem.name === item.name);
+    
+    if (existingCartItem) {
+      // Increase quantity if item exists
+      existingCartItem.quantity = (existingCartItem.quantity || 1) + 1;
+    } else {
+      // Add new item with quantity 1
+      cartItems.push({
+        name: item.name,
+        price: item.price,
+        img: item.img,
+        quantity: 1
+      });
+    }
+    
+    // Remove from wishlist
+    wishlistItems.splice(index, 1);
+    
+    // Save to localStorage
+    localStorage.setItem('babyWishlistItems', JSON.stringify(wishlistItems));
+    localStorage.setItem('babyCartItems', JSON.stringify(cartItems));
+    
+    // Update badges
+    updateBadges();
+    
+    // Re-render wishlist
+    renderWishlist();
+    
+    // Show success message
+    alert(`✅ ${item.name} added to cart!`);
+  }
+
+  // ==========================
+  // REMOVE FROM WISHLIST ONLY
+  // ==========================
+  function removeFromWishlist(index) {
+    const removedItem = wishlistItems[index];
+    
+    if (confirm(`Remove ${removedItem.name} from wishlist?`)) {
+      wishlistItems.splice(index, 1);
+      
+      // Save to localStorage
+      localStorage.setItem('babyWishlistItems', JSON.stringify(wishlistItems));
+      
+      // Update badges
+      updateBadges();
+      
+      // Re-render wishlist
+      renderWishlist();
+    }
+  }
+
+  // ==========================
+  // LOAD CART ITEMS FROM LOCALSTORAGE ON PAGE LOAD
+  // ==========================
+  function loadCartItems() {
+    const storedCartItems = localStorage.getItem('babyCartItems');
+    if (storedCartItems) {
+      cartItems = JSON.parse(storedCartItems);
+      // Ensure all items have quantity property
+      cartItems = cartItems.map(item => ({
+        ...item,
+        quantity: item.quantity || 1
+      }));
+    }
+  }
+
+  // ==========================
+  // INITIALIZE PAGE
+  // ==========================
+  document.addEventListener('DOMContentLoaded', () => {
+    // Load fresh data from localStorage
+    wishlistItems = JSON.parse(localStorage.getItem('babyWishlistItems') || '[]');
+    loadCartItems();
+    
+    // Update counts and badges
+    updateBadges();
+    
+    // Render wishlist
+    renderWishlist();
+  });
+</script>
+</body>
+</html>

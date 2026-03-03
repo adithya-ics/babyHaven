@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BabyHaven · our products</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <!-- Google Font: Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #fff2f7;  /* soft cotton candy background */
+      font-family: 'Poppins', sans-serif;
+      color: #442b38;
+      line-height: 1.5;
+      padding: 0 0 40px 0;  /* removed extra padding from inline style */
+    }
+
+    /* ===== NAVBAR (elevated, blurred) ===== */
+    .navbar-custom {
+      background: rgba(255, 240, 248, 0.85);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: 0 10px 25px -8px rgba(210, 80, 140, 0.2);
+      border-bottom: 1px solid rgba(255, 200, 220, 0.5);
+      padding: 14px 0;
+    }
+
+    .navbar-brand {
+      font-size: 2rem;
+      font-weight: 700;
+      background: linear-gradient(130deg, #c2185b, #e64980);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent !important;
+      letter-spacing: 0.5px;
+    }
+
+    .navbar-brand:hover {
+      transform: scale(1.02);
+    }
+
+    .navbar-nav .nav-link {
+      color: #553b48;
+      font-weight: 500;
+      margin: 0 8px;
+      padding: 8px 16px !important;
+      border-radius: 40px;
+      transition: 0.3s;
+      font-size: 1.05rem;
+      position: relative;
+    }
+
+    .navbar-nav .nav-link:hover {
+      background: rgba(255, 130, 180, 0.15);
+      color: #b82b6b;
+    }
+
+    .navbar-nav .nav-link.active {
+      background: linear-gradient(145deg, #ffdae9, #ffc4db);
+      color: #b1306b !important;
+      font-weight: 600;
+      box-shadow: 0 6px 14px rgba(255, 105, 160, 0.3);
+    }
+
+    .navbar-nav .nav-link:not(.active)::after {
+      content: '';
+      position: absolute;
+      width: 0%;
+      height: 2.5px;
+      background: linear-gradient(90deg, #ff99bb, #ff69b4);
+      left: 16px;
+      bottom: 5px;
+      border-radius: 2px;
+      transition: 0.3s ease;
+    }
+
+    .navbar-nav .nav-link:not(.active):hover::after {
+      width: calc(100% - 32px);
+    }
+
+    /* ===== DROPDOWN (refined) ===== */
+    .dropdown-menu {
+      border-radius: 24px;
+      border: none;
+      padding: 12px 8px;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 16px 30px -10px rgba(214, 51, 132, 0.25);
+      border: 1px solid rgba(255, 210, 230, 0.6);
+      margin-top: 10px !important;
+    }
+
+    .dropdown-item {
+      border-radius: 40px;
+      padding: 10px 20px;
+      font-weight: 500;
+      color: #b63e72;
+      transition: 0.25s;
+    }
+
+    .dropdown-item:hover {
+      background: #ffddee;
+      color: #c2185b;
+      transform: translateX(6px);
+    }
+
+    /* show dropdown on hover (desktop) */
+    @media (min-width: 992px) {
+      .dropdown:hover .dropdown-menu {
+        display: block;
+      }
+    }
+
+    /* ===== PAGE TITLE ===== */
+    .section-title {
+      text-align: center;
+      font-weight: 600;
+      background: linear-gradient(135deg, #d63384, #f06292);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin: 40px 0 30px;
+      font-size: 2.6rem;
+      letter-spacing: -0.3px;
+    }
+
+    /* ===== PRODUCT CARD (airy, dreamy) ===== */
+    .product-card {
+      border-radius: 28px;
+      overflow: hidden;
+      background: white;
+      box-shadow: 0 16px 30px -10px rgba(214, 51, 132, 0.2);
+      transition: all 0.35s ease;
+      text-align: center;
+      border: 1px solid rgba(255, 190, 220, 0.5);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      backdrop-filter: blur(2px);
+    }
+
+    .product-card:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 28px 45px -10px #d45d93;
+      border-color: #ffb0cc;
+    }
+
+    .product-img {
+      width: 100%;
+      height: 280px;          /* balanced height */
+      object-fit: cover;
+      transition: transform 0.7s ease;
+      border-bottom: 2px solid #ffe3ee;
+    }
+
+    .product-card:hover .product-img {
+      transform: scale(1.06);
+    }
+
+    .product-body {
+      padding: 18px 14px 22px;
+      background: white;
+      border-radius: 0 0 28px 28px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-title {
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #7d4d65;
+      font-size: 1.1rem;
+      letter-spacing: 0.3px;
+    }
+
+    .product-price {
+      color: #ff2891;
+      font-weight: 700;
+      font-size: 1.4rem;
+      margin-bottom: 8px;
+      background: linear-gradient(135deg, #ff2891, #c9216b);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .product-icons i {
+      color: #ffb0d0;
+      font-size: 0.95rem;
+      margin: 0 2px;
+    }
+
+    .product-icons i.bi-star-fill {
+      color: #ff80b0;
+      text-shadow: 0 2px 5px #ffb8d6;
+    }
+
+    .product-icons i.bi-star-half {
+      color: #ff99bb;
+    }
+
+    .btn-cart {
+      background: linear-gradient(135deg, #ff9fcb, #ff80b3);
+      border: none;
+      color: white;
+      font-weight: 600;
+      font-size: 0.9rem;
+      padding: 10px 18px;
+      border-radius: 60px;
+      transition: 0.3s;
+      box-shadow: 0 8px 18px rgba(255, 120, 170, 0.4);
+      width: 85%;
+      margin: 10px auto 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      text-transform: uppercase;
+      letter-spacing: 0.7px;
+    }
+
+    .btn-cart i {
+      font-size: 1.2rem;
+    }
+
+    .btn-cart:hover {
+      background: linear-gradient(135deg, #ff80b3, #ff4d94);
+      transform: scale(1.04);
+      box-shadow: 0 12px 22px #f598bc;
+    }
+
+    /* ===== extra spacing ===== */
+    .container-custom {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* footer-ish soft line */
+    /* ===== PINK FOOTER MODEL 2 ===== */
+
+.bh-footer-pink {
+  background: linear-gradient(180deg, #ffe6f0, #ffc9dc);
+  padding: 70px 0 30px;
+  border-radius: 60px 60px 0 0;
+  color: #5a2d42;
+}
+
+.bh-footer-newsletter h3 {
+  font-weight: 600;
+}
+
+.bh-footer-newsletter p {
+  color: #7a4c62;
+}
+
+.bh-pink-input {
+  border-radius: 50px;
+  padding: 12px 20px;
+  border: none;
+  width: 280px;
+}
+
+.bh-pink-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 105, 160, 0.3);
+}
+
+.bh-pink-btn {
+  background: #ff4d94;
+  color: white;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 50px;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.bh-pink-btn:hover {
+  background: #e63c83;
+}
+
+.bh-divider {
+  margin: 40px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.bh-footer-pink h6 {
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.bh-footer-pink ul {
+  list-style: none;
+  padding: 0;
+}
+
+.bh-footer-pink ul li {
+  margin-bottom: 10px;
+}
+
+.bh-footer-pink ul li a {
+  text-decoration: none;
+  color: #6e3f55;
+  transition: 0.3s;
+}
+
+.bh-footer-pink ul li a:hover {
+  color: #ff2f86;
+}
+
+.bh-pink-social i {
+  font-size: 1.3rem;
+  margin-right: 14px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.bh-pink-social i:hover {
+  transform: scale(1.2);
+  color: #ff2f86;
+}
+
+.bh-pink-bottom {
+  font-size: 0.9rem;
+  color: #7a4c62;
+}
+    /* icon group */
+    .nav-icon-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: 12px;
+    }
+    .icon-circle {
+      background: white;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 14px #fccfdf;
+      color: #d96f94;
+      font-size: 1.3rem;
+      transition: 0.2s;
+      position: relative;
+      cursor: default;
+    }
+    .icon-circle:hover { background: #ffe2ed; transform: scale(1.05); }
+    .cart-badge, .wishlist-badge {
+      background: #ff4d94;
+      color: white;
+      border-radius: 30px;
+      padding: 4px 16px;
+      font-size: 0.7rem;
+      font-weight: bold;
+      border: 2px solid white;
+      top: 2px;
+      right: -8px;
+    }
+
+  </style>
+</head>
+<body>
+
+<!-- ===== REFINED NAVBAR ===== -->
+<nav class="navbar navbar-expand-lg navbar-custom sticky-top">
+  <div class="container">
+    <a class="navbar-brand" href="index.html"><i class="bi bi-cup-heart-fill me-2" style="color:#ff99bb;"></i>BabyHaven</a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon" style="filter: hue-rotate(320deg);"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto align-items-center">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="shop.html">Shop</a></li>
+        <!-- categories as dropdown (My Business) -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Categories
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="categories.html">✨ Our Products</a></li>
+            <li><a class="dropdown-item" href="services.html">🌸 Services</a></li>
+            <li><a class="dropdown-item" href="gallery.html">📸 Gallery</a></li>
+          </ul>
+        </li>
+        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        <!-- icon group: search + wishlist (linked) + cart (linked) -->
+        <li class="nav-item nav-icon-group">
+          
+          <!-- wishlist icon with badge - now a link -->
+          <a class="icon-circle position-relative" href="wishlist.html" style="cursor: pointer;">
+            <i class="bi bi-suit-heart-fill"></i>
+            <span class="wishlist-badge position-absolute top-0 start-100 translate-middle" id="wishlistCount"></span>
+          </a>
+          <!-- cart icon with badge - now a link -->
+          <a class="icon-circle position-relative" href="cart.html" style="cursor: pointer;">
+            <i class="bi bi-handbag-fill"></i>
+            <span class="cart-badge position-absolute top-0 start-100 translate-middle" id="cartCount"></span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== PAGE HEADER ===== -->
+<h2 class="section-title">🌸 our gentle collection 🌸</h2>
+
+<!-- ===== PRODUCT GRID (container-custom for breathing room) ===== -->
+<div class="container-custom">
+  <div class="row g-4 row-cols-2 row-cols-sm-3 row-cols-md-4">
+
+    <!-- Product 1 -->
+    <div class="col">
+      <div class="product-card">
+        <img src="babyromperset.jpg" alt="baby romper set" class="product-img">
+        <div class="product-body">
+          <h6 class="product-title">baby romper set</h6>
+          <div class="product-price">$399.00</div>
+          <div class="product-icons mb-2">
+            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i><i class="bi bi-star"></i>
+          </div>
+          <button class="btn-cart">New Arrivals</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product 2 -->
+    <div class="col">
+      <div class="product-card">
+        <img src="SoftBlanketset.jpg" alt="soft blanket comb" class="product-img">
+        <div class="product-body">
+          <h6 class="product-title">soft blanket combo</h6>
+          <div class="product-price">$499.00</div>
+          <div class="product-icons mb-2">
+            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star"></i>
+          </div>
+          <button class="btn-cart">New Arrivals</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product 3 -->
+    <div class="col">
+      <div class="product-card">
+        <img src="crochetbabyshoes.jpg" alt="crochet baby shoes" class="product-img">
+        <div class="product-body">
+          <h6 class="product-title">crochet baby shoes</h6>
+          <div class="product-price">$699.00</div>
+          <div class="product-icons mb-2">
+            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star"></i><i class="bi bi-star"></i>
+          </div>
+          <button class="btn-cart">New Arrivals</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product 4 -->
+    <div class="col">
+      <div class="product-card">
+        <img src="baby socks.jpg" alt="baby powder combo" class="product-img">
+        <div class="product-body">
+          <h6 class="product-title">baby socks combo</h6>
+          <div class="product-price">$299.00</div>
+          <div class="product-icons mb-2">
+            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i><i class="bi bi-star"></i><i class="bi bi-star"></i>
+          </div>
+          <button class="btn-cart">New Arrivals</button>
+        </div>
+      </div>
+    </div>
+
+    
+ 
+  </div> <!-- row -->
+</div> <!-- container-custom -->
+
+<!-- soft footer line -->
+<section class="bh-footer-pink">
+
+  <div class="container">
+
+    <!-- Newsletter Top -->
+    <div class="bh-footer-newsletter text-center">
+      <h3>Join the BabyHaven Family 💗</h3>
+      <p>Get exclusive baby deals, dreamy picks & soft surprises.</p>
+
+      <form class="d-flex justify-content-center flex-wrap gap-3 mt-3">
+        <input type="email" class="bh-pink-input" placeholder="Enter your email">
+        <button class="bh-pink-btn">Subscribe</button>
+      </form>
+    </div>
+    
+
+    <hr class="bh-divider">
+
+    <!-- Footer Columns -->
+    <div class="row mt-5">
+
+      <div class="col-md-3 mb-4">
+        <h6>BabyHaven</h6>
+        <ul>
+          <li><a href="#">Our Story</a></li>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="col-md-3 mb-4">
+        <h6>Shop</h6>
+        <ul>
+          <li><a href="#">New Arrivals</a></li>
+          <li><a href="#">Best Sellers</a></li>
+          <li><a href="#">Gift Sets</a></li>
+          <li><a href="#">Organic Picks</a></li>
+        </ul>
+      </div>
+
+      <div class="col-md-3 mb-4">
+        <h6>Support</h6>
+        <ul>
+          <li><a href="#">Shipping Info</a></li>
+          <li><a href="#">Returns</a></li>
+          <li><a href="#">FAQs</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+        </ul>
+      </div>
+
+      <div class="col-md-3 mb-4">
+        <h6>Follow Us</h6>
+        <div class="bh-pink-social">
+          <i class="bi bi-facebook"></i>
+          <i class="bi bi-instagram"></i>
+          <i class="bi bi-twitter-x"></i>
+          <i class="bi bi-pinterest"></i>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom -->
+    <div class="bh-pink-bottom text-center mt-4">
+      © 2026 BabyHaven · Made with love for little stars ✨
+    </div>
+
+  </div>
+</section>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  // Load counts from localStorage (default 0 instead of 12/4)
+let wishlistCount = parseInt(localStorage.getItem('babyWishlistCount')) || 0;
+let cartCount = parseInt(localStorage.getItem('babyCartCount')) || 0;
+
+// Update badges safely
+function updateBadges() {
+  const wishlistEl = document.getElementById('wishlistCount');
+  const cartEl = document.getElementById('cartCount');
+
+  if (wishlistEl) wishlistEl.innerText = wishlistCount;
+  if (cartEl) cartEl.innerText = cartCount;
+}
+
+document.addEventListener('DOMContentLoaded', updateBadges);
+
+// Toggle wishlist
+window.toggleWishlist = function(heartElement) {
+  heartElement.classList.toggle('wishlist-active');
+
+  const icon = heartElement.querySelector('i');
+
+  if (icon.classList.contains('bi-heart')) {
+    icon.classList.replace('bi-heart', 'bi-heart-fill');
+    wishlistCount++;
+  } else {
+    icon.classList.replace('bi-heart-fill', 'bi-heart');
+    wishlistCount--;
+  }
+
+  localStorage.setItem('babyWishlistCount', wishlistCount);
+  updateBadges();
+};
+
+// Add to cart
+window.incrementCart = function() {
+  cartCount++;
+  localStorage.setItem('babyCartCount', cartCount);
+  updateBadges();
+};
+</script>
+</body>
+</html>
